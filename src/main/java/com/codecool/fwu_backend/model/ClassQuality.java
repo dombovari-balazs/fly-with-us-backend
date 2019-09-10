@@ -1,4 +1,4 @@
-package com.codecool.fwu_backend.component;
+package com.codecool.fwu_backend.model;
 
 import java.util.Random;
 
