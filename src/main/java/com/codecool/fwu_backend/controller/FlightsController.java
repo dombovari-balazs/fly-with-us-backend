@@ -5,6 +5,7 @@ import com.codecool.fwu_backend.service.FlightStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -25,5 +26,10 @@ public class FlightsController {
     @PostMapping("booking/{flightId}")
     public Flight bookFlight(@PathVariable("flightId")UUID flightId) throws Exception {
         return flightStorage.bookFlight(flightId);
+    }
+
+    @GetMapping("list/bookings")
+    public Map<String, List> showBookedFlights(){
+        return flightStorage.getAllTheBookedFlights();
     }
 }

@@ -9,6 +9,7 @@ import java.util.*;
 
 @Service
 public class FlightStorage {
+
     private List<Flight> flights = new ArrayList<>();
     private List<Flight> bookedFlight = new ArrayList<>();
 
@@ -48,4 +49,11 @@ public class FlightStorage {
         }
         throw new Exception("Flight not found");
     }
+
+    public Map<String,List> getAllTheBookedFlights(){
+        Map<String,List> allBookedFlights= new HashMap<>();
+        allBookedFlights.put("Bookings", bookedFlight);
+        return allBookedFlights;
+    }
+
 }
