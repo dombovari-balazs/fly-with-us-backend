@@ -28,6 +28,7 @@ public class FlightsController {
     public Map<String, List> getFlights(@PathVariable("from") String from, @PathVariable("to") String to, @PathVariable("when") String when){
         List<Flight> cheapFlights = new ArrayList<>();
 
+
         cheapFlights.add(flightStorage.addFlight(to, from, when));
         cheapFlights.add(flightStorage.addFlight(to, from, when));
         cheapFlights.add(flightStorage.addFlight(to, from, when));
