@@ -10,6 +10,7 @@ import java.util.*;
 @Service
 public class FlightStorage {
     private List<Flight> flights = new ArrayList<>();
+    private List<Flight> bookedFlight = new ArrayList<>();
 
     Random random = new Random();
 
@@ -31,5 +32,20 @@ public class FlightStorage {
         }
         randomFlights.put("Flights", cheapFlights);
         return randomFlights;
+    }
+
+    public Flight bookFlight(UUID flightId) throws Exception {
+        Flight bookable = findFlight(flightId);
+        bookedFlight.add(bookable);
+        return bookable;
+    }
+
+    public Flight findFlight(UUID flightId) throws Exception {
+        for (Flight flight : flights) {
+            if (flight.getId().equals(flightId)){
+                return flight;
+            }
+        }
+        throw new Exception("Flight not found");
     }
 }
