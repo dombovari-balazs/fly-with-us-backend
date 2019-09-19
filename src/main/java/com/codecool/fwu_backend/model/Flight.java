@@ -1,7 +1,5 @@
 package com.codecool.fwu_backend.model;
 
-import org.springframework.stereotype.Component;
-
 import java.util.Random;
 import java.util.UUID;
 
