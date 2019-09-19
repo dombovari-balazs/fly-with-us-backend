@@ -21,25 +21,18 @@ public class FlightService {
         Stream.generate(() -> new Flight(to, from, when) ).limit(random.nextInt(20)).forEach(flightStorage::add);
     }
 
-//    public Flight bookFlight(UUID flightId) throws Exception {
-//        Flight bookable = findFlight(flightId);
-//        bookedFlight.add(bookable);
-//        return bookable;
-//    }
-//
-//    public Flight findFlight(UUID flightId) throws Exception {
-//        for (Flight flight : flights) {
-//            if (flight.getId().equals(flightId)){
-//                return flight;
-//            }
-//        }
-//        throw new Exception("Flight not found");
-//    }
-//
-//    public Map<String,List> getAllTheBookedFlights(){
-//        Map<String,List> allBookedFlights= new HashMap<>();
-//        allBookedFlights.put("Bookings", bookedFlight);
-//        return allBookedFlights;
-//    }
+    public Flight findFlight(UUID flightId) throws Exception {
+        for (Flight flight : flightStorage.getFlights()) {
+            if (flight.getId().equals(flightId)){
+                return flight;
+            }
+        }
+        throw new Exception("Flight not found");
+    }
 
+    public Flight bookFlight(UUID flightId) throws Exception {
+        Flight bookable = findFlight(flightId);
+        flightStorage.bookFlight(bookable);
+        return bookable;
+    }
 }

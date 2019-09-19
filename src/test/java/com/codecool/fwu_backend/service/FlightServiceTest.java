@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Random;
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyObject;
@@ -22,12 +23,12 @@ public class FlightServiceTest {
 
     @MockBean
     FlightStorage flightStorage;
-
     @MockBean
     Random random;
 
     @Autowired
     FlightService flightService;
+
 
     @Test
     public void addRandomAmountOfFlight() {

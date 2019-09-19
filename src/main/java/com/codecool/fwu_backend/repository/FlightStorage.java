@@ -16,9 +16,16 @@ public class FlightStorage {
         this.flights.add(flight);
     }
 
+    public void bookFlight(Flight flight){
+        this.bookedFlight.add(flight);
+    }
+
     public List<Flight> getFlights(){
         return new ArrayList<>(flights);
     }
 
+    public List<Flight> getBookedFlight(){
+        return new ArrayList<>(bookedFlight);
+    }
 
 }
