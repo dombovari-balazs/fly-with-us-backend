@@ -6,6 +6,7 @@ import com.codecool.fwu_backend.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -21,10 +22,17 @@ public class FlightsController {
     @Autowired
     private FlightService flightService;
 
+    @GetMapping("test")
+    public String test(){
+        return "Server is running";
+    }
+
     @GetMapping("list/{from}/{to}/{when}")
-    public List<Flight> getFlights(@PathVariable("from") String from, @PathVariable("to") String to, @PathVariable("when") String when){
+    public HashMap<String,List> getFlights(@PathVariable("from") String from, @PathVariable("to") String to, @PathVariable("when") String when){
         flightService.addRandomAmountOfFlight(to,from,when);
-        return flightStorage.getFlights();
+        HashMap<String,List> response = new HashMap<>();
+        response.put("Flights",flightStorage.getFlights());
+        return response;
     }
 
     @PostMapping("booking/{flightId}")
