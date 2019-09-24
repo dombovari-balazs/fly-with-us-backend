@@ -11,9 +11,7 @@ public class Flight {
     private String date;
     private ClassQuality classQuality;
     private double price;
-    private Company company;
-
-
+    private Company company;1
 
     public Flight(String cityTo, String cityFrom, String date) {
         Random random = new Random();
@@ -65,5 +63,36 @@ public class Flight {
 
     public Company getCompany() {
         return company;
+    }
+
+    public Flight() {
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public void setCityTo(String cityTo) {
+        this.cityTo = cityTo;
+    }
+
+    public void setCityFrom(String cityFrom) {
+        this.cityFrom = cityFrom;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setClassQuality(ClassQuality classQuality) {
+        this.classQuality = classQuality;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
