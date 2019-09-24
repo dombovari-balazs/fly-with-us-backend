@@ -17,21 +17,32 @@ public class FlightService {
     @Autowired
     private Random random;
 
+
+
     public void addRandomAmountOfFlight(String to, String from, String when){
-        Stream.generate(() -> new Flight(to, from, when) ).limit(random.nextInt(20)).forEach(flightStorage::add);
+        Stream.generate(() -> Flight.builder()
+                .cityFrom(from)
+                .cityTo(to)
+                .date(when)
+                .build() )
+                .limit(random.nextInt(20))
+                .forEach(flight -> {
+                    flight.fillUpWithGeneratedValues();
+                    flightStorage.add(flight);
+                });
     }
 
-    public Flight findFlight(UUID flightId) throws Exception {
+    public Flight findFlight(Long id) throws Exception {
         for (Flight flight : flightStorage.getFlights()) {
-            if (flight.getId().equals(flightId)){
+            if (flight.getId().equals(id)){
                 return flight;
             }
         }
         throw new Exception("Flight not found");
     }
 
-    public Flight bookFlight(UUID flightId) throws Exception {
-        Flight bookable = findFlight(flightId);
+    public Flight bookFlight(Long id) throws Exception {
+        Flight bookable = findFlight(id);
         flightStorage.bookFlight(bookable);
         return bookable;
     }

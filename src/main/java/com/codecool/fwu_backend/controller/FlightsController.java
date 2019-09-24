@@ -36,7 +36,7 @@ public class FlightsController {
     }
 
     @PostMapping("booking/{flightId}")
-    public Flight bookFlight(@PathVariable("flightId")UUID flightId) throws Exception {
+    public Flight bookFlight(@PathVariable("flightId")Long flightId) throws Exception {
         return flightService.bookFlight(flightId);
     }
 
