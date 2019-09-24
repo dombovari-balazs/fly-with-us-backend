@@ -12,7 +12,6 @@ public class Flight {
     private ClassQuality classQuality;
     private double price;
     private Company company;
-    
 
 
 
