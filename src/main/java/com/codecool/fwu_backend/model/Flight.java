@@ -1,15 +1,13 @@
 package com.codecool.fwu_backend.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-import java.util.UUID;
+
+
 
 @Entity
 @Data
@@ -41,4 +39,8 @@ public class Flight {
 
     @Enumerated(EnumType.STRING)
     private Company company;
+
+    @ElementCollection
+    @Singular
+    private List<Movie> movies = new ArrayList<>();
 }
