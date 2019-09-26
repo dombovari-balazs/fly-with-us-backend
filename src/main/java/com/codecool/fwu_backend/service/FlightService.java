@@ -28,7 +28,7 @@ public class FlightService {
                 .limit(random.nextInt(20))
                 .forEach(flight -> {
                     flight.fillUpWithGeneratedValues();
-                    flightStorage.add(flight);
+                    flightStorage.save(flight);
                 });
     }
     public Flight getOneFlight(){
@@ -36,7 +36,7 @@ public class FlightService {
     }
 
     public Flight findFlight(Long id) throws Exception {
-        for (Flight flight : flightStorage.getFlights()) {
+        for (Flight flight : flightStorage.findAll()) {
             if (flight.getId().equals(id)){
                 return flight;
             }

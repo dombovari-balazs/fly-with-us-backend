@@ -27,12 +27,10 @@ public class FlightsController {
         return "Server is running";
     }
 
-    @GetMapping("list/{from}/{to}/{when}")
-    public HashMap<String,List> getFlights(@PathVariable("from") String from, @PathVariable("to") String to, @PathVariable("when") String when){
-        flightService.addRandomAmountOfFlight(to,from,when);
 
     @GetMapping("list/{from}/{to}/{when}")
     public HashMap<String,List> getFlights(@PathVariable("from") String from, @PathVariable("to") String to, @PathVariable("when") String when){
+        flightService.addRandomAmountOfFlight(to,from,when);
 
         HashMap<String,List> response = new HashMap<>();
         response.put("Flights",flightStorage.getFlightsByCityFromAndCityToAndDate(from,to,when));

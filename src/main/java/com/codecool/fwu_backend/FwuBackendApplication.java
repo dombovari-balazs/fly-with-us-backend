@@ -24,6 +24,7 @@ public class FwuBackendApplication {
 
     @Autowired
     private AvailableFlightStorage flightStorage;
+
     public FwuBackendApplication(FlightService flightService) {
         this.flightService = flightService;
     }
@@ -35,7 +36,7 @@ public class FwuBackendApplication {
     }
 
     @Bean
-    public CommandLineRunner init(){
+    public CommandLineRunner init() {
         return args -> {
             //flightService.addRandomAmountOfFlight(City.BUDAPEST.name(),City.BARCELONA.name(), "2019-09-24");
             //log.info(flightService.getOneFlight().toString());
@@ -52,4 +53,6 @@ public class FwuBackendApplication {
             log.info(flightStorage.findAll().toString());
 
 
+        };
+    }
 }
