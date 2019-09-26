@@ -1,15 +1,14 @@
 package com.codecool.fwu_backend.model;
 
+import com.codecool.fwu_backend.model.enums.ClassQuality;
+import com.codecool.fwu_backend.model.enums.Company;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Random;
-import java.util.UUID;
 
 @Entity
 @Data
