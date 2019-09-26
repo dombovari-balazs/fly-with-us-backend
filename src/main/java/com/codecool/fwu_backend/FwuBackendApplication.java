@@ -24,7 +24,6 @@ public class FwuBackendApplication {
 
     @Autowired
     private AvailableFlightStorage flightStorage;
-
     public FwuBackendApplication(FlightService flightService) {
         this.flightService = flightService;
     }
