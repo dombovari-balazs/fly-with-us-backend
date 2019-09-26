@@ -3,8 +3,10 @@ package com.codecool.fwu_backend;
 import com.codecool.fwu_backend.model.City;
 import com.codecool.fwu_backend.model.Flight;
 import com.codecool.fwu_backend.model.Movie;
+import com.codecool.fwu_backend.model.TravelAgent;
 import com.codecool.fwu_backend.repository.AvailableFlightStorage;
 import com.codecool.fwu_backend.repository.MovieStorage;
+import com.codecool.fwu_backend.repository.TravelAgentStorage;
 import com.codecool.fwu_backend.service.FlightService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,13 @@ public class FwuBackendApplication {
     private AvailableFlightStorage flightStorage;
     private FlightService flightService;
     private MovieStorage movieStorage;
+    private TravelAgentStorage travelAgentStorage;
 
-    public FwuBackendApplication(AvailableFlightStorage flightStorage, FlightService flightService, MovieStorage movieStorage) {
+    public FwuBackendApplication(AvailableFlightStorage flightStorage, FlightService flightService, MovieStorage movieStorage, TravelAgentStorage travelAgentStorage) {
         this.flightStorage = flightStorage;
         this.flightService = flightService;
         this.movieStorage = movieStorage;
+        this.travelAgentStorage = travelAgentStorage;
     }
 
     public static void main(String[] args) {
@@ -41,6 +45,8 @@ public class FwuBackendApplication {
         return args -> {
             //flightService.addRandomAmountOfFlight(City.BUDAPEST.name(),City.BARCELONA.name(), "2019-09-24");
             //log.info(flightService.getOneFlight().toString());
+
+
             Movie movie1 = Movie.builder()
                     .title("Airplane!")
                     .length(120)
@@ -55,7 +61,19 @@ public class FwuBackendApplication {
                     .build();
             example.fillUpWithGeneratedValues();
 
-            flightStorage.saveAndFlush(example);
+            flightStorage.save(example);
+
+            TravelAgent travelAgent = TravelAgent.builder()
+                    .name("WizHair")
+                    .rating(5f)
+                    .website("localhost")
+                    .flight(example)
+                    .build();
+
+
+            travelAgentStorage.save(travelAgent);
+
+
 
             log.info(flightStorage.findAll().toString());
 
