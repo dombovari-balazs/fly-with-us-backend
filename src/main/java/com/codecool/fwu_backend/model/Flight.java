@@ -1,69 +1,44 @@
 package com.codecool.fwu_backend.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Random;
 import java.util.UUID;
 
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Flight {
 
-    private UUID id;
-    private String cityTo;
-    private String cityFrom;
-    private String date;
-    private ClassQuality classQuality;
-    private double price;
-    private Company company;
 
-
-
-    public Flight(String cityTo, String cityFrom, String date) {
+    public void fillUpWithGeneratedValues(){
         Random random = new Random();
-        this.id = UUID.randomUUID();
-        this.cityTo = cityTo;
-        this.cityFrom = cityFrom;
-        this.date = date;
         this.classQuality = ClassQuality.getRandomClass();
-        this.price = 10 + random.nextDouble()*100;
+        this.price = random.nextDouble()*100;
         this.company = Company.getRandomClass();
     }
 
-    @Override
-    public String toString() {
-        return "Flight{" +
-                "id=" + id +
-                ", cityTo='" + cityTo + '\'' +
-                ", cityFrom='" + cityFrom + '\'' +
-                ", date='" + date + '\'' +
-                ", classQuality=" + classQuality +
-                ", price=" + price +
-                ", company=" + company +
-                '}';
-    }
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    public UUID getId() {
-        return id;
-    }
+    private String cityTo;
+    private String cityFrom;
+    private String date;
 
-    public String getCityTo() {
-        return cityTo;
-    }
+    @Enumerated(EnumType.STRING)
+    private ClassQuality classQuality;
 
-    public String getCityFrom() {
-        return cityFrom;
-    }
+    private double price;
 
-    public String getDate() {
-        return date;
-    }
-
-    public ClassQuality getClassQuality() {
-        return classQuality;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
+    @Enumerated(EnumType.STRING)
+    private Company company;
 }
