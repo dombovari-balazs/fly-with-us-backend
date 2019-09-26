@@ -55,4 +55,10 @@ public class FlightsController {
     public void changeBookedFlight(@RequestBody Flight flight) {
         bookedFlightStorage.findById(flight.getId());
     }
+
+    @DeleteMapping("book")
+    public void deleteBookedFlight(@RequestBody Flight flight) {
+        Flight booked = bookedFlightStorage.findById(flight.getId()).get();
+        bookedFlightStorage.delete(booked);
+    }
 }
