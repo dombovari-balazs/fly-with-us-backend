@@ -2,6 +2,7 @@ package com.codecool.fwu_backend.controller;
 
 import com.codecool.fwu_backend.model.Flight;
 import com.codecool.fwu_backend.repository.AvailableFlightStorage;
+import com.codecool.fwu_backend.repository.BookedFlightStorage;
 import com.codecool.fwu_backend.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,31 +14,45 @@ import java.util.UUID;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/flight")
+@RequestMapping("/flights")
 public class FlightsController {
 
-    @Autowired
     private AvailableFlightStorage flightStorage;
-
-    @Autowired
+    private BookedFlightStorage bookedFlightStorage;
     private FlightService flightService;
 
-    @GetMapping("test")
-    public String test(){
-        return "Server is running";
+    public FlightsController(AvailableFlightStorage flightStorage, BookedFlightStorage bookedFlightStorage, FlightService flightService) {
+        this.flightStorage = flightStorage;
+        this.bookedFlightStorage = bookedFlightStorage;
+        this.flightService = flightService;
+    }
+
+    @GetMapping
+    public List<Flight> listFlights() {
+        return flightStorage.findAll();
+
     }
 
 
-    @GetMapping("list/{from}/{to}/{when}")
-    public HashMap<String,List> getFlights(@PathVariable("from") String from, @PathVariable("to") String to, @PathVariable("when") String when){
-        flightService.addRandomAmountOfFlight(to,from,when);
-
-        HashMap<String,List> response = new HashMap<>();
-        response.put("Flights",flightStorage.getFlightsByCityFromAndCityToAndDate(from,to,when));
-        return response;
+    @GetMapping
+    public List<Flight> getFlights(@RequestParam String from, @RequestParam String to, @RequestParam String when) {
+        flightService.addRandomAmountOfFlight(to, from, when);
+        return flightStorage.getFlightsByCityFromAndCityToAndDate(from, to, when);
     }
 
 
-   // @GetMapping("list/bookings")
+    @GetMapping("list/bookings")
+    public List<Flight> listBookedFlights() {
+        return bookedFlightStorage.findAll();
+    }
 
+    @PostMapping("book")
+    public void bookFlight(@RequestBody Flight flight) {
+        bookedFlightStorage.save(flight);
+    }
+
+    @PutMapping("book")
+    public void changeBookedFlight(@RequestBody Flight flight) {
+        bookedFlightStorage.findById(flight.getId());
+    }
 }
