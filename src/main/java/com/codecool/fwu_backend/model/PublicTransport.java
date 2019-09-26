@@ -1,17 +1,12 @@
 package com.codecool.fwu_backend.model;
 
-import com.codecool.fwu_backend.model.enums.City;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
-import java.util.stream.IntStream;
 
 
 @Entity
