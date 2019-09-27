@@ -1,11 +1,8 @@
 package com.codecool.fwu_backend;
 
-import com.codecool.fwu_backend.model.Airport;
-import com.codecool.fwu_backend.model.Product;
-import com.codecool.fwu_backend.model.PublicTransport;
+import com.codecool.fwu_backend.model.*;
 import com.codecool.fwu_backend.model.enums.City;
-import com.codecool.fwu_backend.model.Flight;
-import com.codecool.fwu_backend.repository.AvailableFlightStorage;
+import com.codecool.fwu_backend.repository.*;
 import com.codecool.fwu_backend.service.FlightCreator;
 import com.codecool.fwu_backend.service.FlightService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,12 +23,24 @@ public class FwuBackendApplication {
     private AvailableFlightStorage flightStorage;
     private FlightService flightService;
     private MovieStorage movieStorage;
+    private PublicTransportRepository publicTransportRepository;
+    private AirportRepository airportRepository;
+    private ProductRepository productRepository;
     private TravelAgentStorage travelAgentStorage;
 
-    public FwuBackendApplication(AvailableFlightStorage flightStorage, FlightService flightService, MovieStorage movieStorage, TravelAgentStorage travelAgentStorage) {
+    public FwuBackendApplication(AvailableFlightStorage flightStorage,
+                                 FlightService flightService,
+                                 MovieStorage movieStorage,
+                                 PublicTransportRepository publicTransportRepository,
+                                 AirportRepository airportRepository,
+                                 ProductRepository productRepository,
+                                 TravelAgentStorage travelAgentStorage) {
         this.flightStorage = flightStorage;
         this.flightService = flightService;
         this.movieStorage = movieStorage;
+        this.publicTransportRepository = publicTransportRepository;
+        this.airportRepository = airportRepository;
+        this.productRepository = productRepository;
         this.travelAgentStorage = travelAgentStorage;
     }
 

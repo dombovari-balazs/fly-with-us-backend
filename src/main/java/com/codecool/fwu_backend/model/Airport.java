@@ -1,6 +1,8 @@
 package com.codecool.fwu_backend.model;
 
 import com.codecool.fwu_backend.model.enums.City;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,6 +35,7 @@ public class Airport {
     @OneToOne
     private PublicTransport publicTransport;
 
+    @JsonIgnore
     @Singular()
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(

@@ -1,8 +1,8 @@
 package com.codecool.fwu_backend.controller;
 
+import com.codecool.fwu_backend.model.Airport;
 import com.codecool.fwu_backend.model.Flight;
-import com.codecool.fwu_backend.repository.AvailableFlightStorage;
-import com.codecool.fwu_backend.repository.BookedFlightStorage;
+import com.codecool.fwu_backend.repository.*;
 import com.codecool.fwu_backend.service.FlightService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,28 @@ public class FlightsController {
 
     private AvailableFlightStorage flightStorage;
     private BookedFlightStorage bookedFlightStorage;
-    private FlightService flightService;
+    private MovieStorage movieStorage;
+    private PublicTransportRepository publicTransportRepository;
+    private AirportRepository airportRepository;
+    private ProductRepository productRepository;
+    private TravelAgentStorage travelAgentStorage;
 
-    public FlightsController(AvailableFlightStorage flightStorage, BookedFlightStorage bookedFlightStorage, FlightService flightService) {
+    public FlightsController(AvailableFlightStorage flightStorage,
+                                 MovieStorage movieStorage,
+                                 PublicTransportRepository publicTransportRepository,
+                                 AirportRepository airportRepository,
+                                 ProductRepository productRepository,
+                                 TravelAgentStorage travelAgentStorage,
+                                 BookedFlightStorage bookedFlightStorage) {
         this.flightStorage = flightStorage;
+        this.movieStorage = movieStorage;
+        this.publicTransportRepository = publicTransportRepository;
+        this.airportRepository = airportRepository;
+        this.productRepository = productRepository;
+        this.travelAgentStorage = travelAgentStorage;
         this.bookedFlightStorage = bookedFlightStorage;
-        this.flightService = flightService;
     }
+
 
     @GetMapping("/")
     public List<Flight> listFlights() {
@@ -36,12 +51,21 @@ public class FlightsController {
 
 
     @GetMapping("list")
-    public List<Flight> getFlights(@RequestParam String from, @RequestParam String to, @RequestParam String when) {
-        flightService.addRandomAmountOfFlight(to, from, when);
+    public List<Flight> getFlights(@RequestParam String from,
+                                   @RequestParam String to,
+                                   @RequestParam String when) {
+        from = from.toUpperCase();
+        to = to.toUpperCase();
+        when = when.toUpperCase();
+        log.info(from, to, when);
         return flightStorage.getFlightsByCityFromAndCityToAndDate(from, to, when);
     }
 
-    @CrossOrigin
+    @GetMapping("/airports")
+    public List<Airport> getAirports() {
+        return airportRepository.findAll();
+    }
+
     @GetMapping("list/bookings")
     public List<Flight> listBookedFlights() {
         return bookedFlightStorage.findAll();
