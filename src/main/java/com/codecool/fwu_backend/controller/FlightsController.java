@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 @Slf4j
-@CrossOrigin
 @RestController
+@CrossOrigin
 @RequestMapping("/flights")
 public class FlightsController {
 
@@ -28,28 +28,20 @@ public class FlightsController {
         this.flightService = flightService;
     }
 
-
-    @GetMapping("/list")
-    public void testInput(@RequestParam Map<String,String> parameters) {
-        log.info(parameters.get("A"));
-        log.info(parameters.get("B"));
-    }
-
-
-    @GetMapping("toroldkipls")
+    @GetMapping("/")
     public List<Flight> listFlights() {
         return flightStorage.findAll();
 
     }
 
 
-    @GetMapping("toroldkiplseztis")
+    @GetMapping("list")
     public List<Flight> getFlights(@RequestParam String from, @RequestParam String to, @RequestParam String when) {
         flightService.addRandomAmountOfFlight(to, from, when);
         return flightStorage.getFlightsByCityFromAndCityToAndDate(from, to, when);
     }
 
-
+    @CrossOrigin
     @GetMapping("list/bookings")
     public List<Flight> listBookedFlights() {
         return bookedFlightStorage.findAll();
