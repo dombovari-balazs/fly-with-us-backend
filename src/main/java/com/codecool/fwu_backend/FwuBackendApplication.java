@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Bean;
 
 import javax.accessibility.AccessibleValue;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @SpringBootApplication
@@ -59,17 +61,19 @@ public class FwuBackendApplication {
                     .title("Airplane!")
                     .length(120)
                     .build();
-            movieStorage.save(movie1);
 
             Flight example = Flight.builder()
                     .cityFrom(City.BUDAPEST.name())
                     .cityTo(City.BARCELONA.name())
                     .date("2019-09-24")
-                    .movies(movieStorage.findAll())
+                    .oneMovie(movie1)
                     .build();
             example.fillUpWithGeneratedValues();
+            movie1.setFlights(Collections.singletonList(example));
 
+            movieStorage.save(movie1);
             flightStorage.save(example);
+
 
             TravelAgent travelAgent = TravelAgent.builder()
                     .name("WizHair")
@@ -92,7 +96,6 @@ public class FwuBackendApplication {
 
             flightStorage.saveAndFlush(example2);
 
-            log.info(flightStorage.findAll().toString());
 
             PublicTransport bkk = PublicTransport.builder()
                     .name("BKK")
@@ -118,7 +121,6 @@ public class FwuBackendApplication {
             liszt_ferenc_airport.setProducts(productRepository.findAll());
             airportRepository.save(liszt_ferenc_airport);
 
-            log.info(liszt_ferenc_airport.toString());
 
 
         };

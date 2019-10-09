@@ -2,6 +2,7 @@ package com.codecool.fwu_backend.controller;
 
 import com.codecool.fwu_backend.model.Airport;
 import com.codecool.fwu_backend.model.Flight;
+import com.codecool.fwu_backend.model.Movie;
 import com.codecool.fwu_backend.model.enums.City;
 import com.codecool.fwu_backend.repository.*;
 import com.codecool.fwu_backend.service.FlightService;
@@ -74,4 +75,10 @@ public class FlightsController {
     public Map<String,City[]> getCities(){
         return flightService.getAllCity();
     }
+
+    @GetMapping("/{id}/movies")
+    public List<Movie> listMovieByFlightId(@PathVariable Long id){
+        return flightService.listMovieByFlightId(id);
+    }
+
 }

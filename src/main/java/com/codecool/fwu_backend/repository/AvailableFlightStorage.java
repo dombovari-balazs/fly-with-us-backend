@@ -1,6 +1,7 @@
 package com.codecool.fwu_backend.repository;
 
 import com.codecool.fwu_backend.model.Flight;
+import com.codecool.fwu_backend.model.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
