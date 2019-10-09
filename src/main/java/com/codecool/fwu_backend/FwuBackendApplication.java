@@ -5,6 +5,7 @@ import com.codecool.fwu_backend.model.enums.City;
 import com.codecool.fwu_backend.repository.*;
 import com.codecool.fwu_backend.service.FlightCreator;
 import com.codecool.fwu_backend.service.FlightService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@AllArgsConstructor
 @SpringBootApplication
 @Slf4j
 public class FwuBackendApplication {
@@ -29,22 +31,7 @@ public class FwuBackendApplication {
     private AirportRepository airportRepository;
     private ProductRepository productRepository;
     private TravelAgentStorage travelAgentStorage;
-
-    public FwuBackendApplication(AvailableFlightStorage flightStorage,
-                                 FlightService flightService,
-                                 MovieStorage movieStorage,
-                                 PublicTransportRepository publicTransportRepository,
-                                 AirportRepository airportRepository,
-                                 ProductRepository productRepository,
-                                 TravelAgentStorage travelAgentStorage) {
-        this.flightStorage = flightStorage;
-        this.flightService = flightService;
-        this.movieStorage = movieStorage;
-        this.publicTransportRepository = publicTransportRepository;
-        this.airportRepository = airportRepository;
-        this.productRepository = productRepository;
-        this.travelAgentStorage = travelAgentStorage;
-    }
+    private ImageRepository imageRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(FwuBackendApplication.class, args);
@@ -55,6 +42,18 @@ public class FwuBackendApplication {
         return args -> {
             //flightService.addRandomAmountOfFlight(City.BUDAPEST.name(),City.BARCELONA.name(), "2019-09-24");
             //log.info(flightService.getOneFlight().toString());
+
+            Image budapest = Image.builder()
+                    .city(City.BUDAPEST)
+                    .link("https://www.thenational.ae/image/policy:1.906591:1567660612/lf04-SEP-travel-budapest01.jpg?f=16x9&w=1200&$p$f$w=42f8404")
+                    .build();
+            imageRepository.save(budapest);
+
+            Image barcelona = Image.builder()
+                    .city(City.BARCELONA)
+                    .link("")
+                    .build();
+            imageRepository.save(barcelona);
 
 
             Movie movie1 = Movie.builder()

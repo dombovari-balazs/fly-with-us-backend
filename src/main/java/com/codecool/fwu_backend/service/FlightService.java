@@ -3,6 +3,7 @@ package com.codecool.fwu_backend.service;
 import com.codecool.fwu_backend.model.Airport;
 import com.codecool.fwu_backend.model.Flight;
 import com.codecool.fwu_backend.model.Movie;
+import com.codecool.fwu_backend.model.dto.FlightDto;
 import com.codecool.fwu_backend.model.enums.City;
 import com.codecool.fwu_backend.repository.*;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @AllArgsConstructor
@@ -45,8 +47,10 @@ public class FlightService {
         return flightStorage.findAll().get(0);
     }
 
-    public List<Flight> listFlights(String from, String to, String when){
-        return flightStorage.getFlightsByCityFromAndCityToAndDate(from, to, when);
+    public List<FlightDto> listFlights(String from, String to, String when){
+        List<Flight> flights = flightStorage.getFlightsByCityFromAndCityToAndDate(from, to, when);
+        return flights.stream().map(FlightDto::new).collect(Collectors.toList());
+
     }
 
     public List<Flight> findAllFlight() {
@@ -62,8 +66,8 @@ public class FlightService {
         return bookedFlightStorage.findAll();
     }
 
-    public boolean bookFlight(Flight flight) {
-        Flight one = flightStorage.getOne(flight.getId());
+    public boolean bookFlight(Long flightID) {
+        Flight one = flightStorage.getOne(flightID);
         bookedFlightStorage.save(one);
         return true;
     }
@@ -73,8 +77,8 @@ public class FlightService {
         bookedFlightStorage.save(flight);
     }
 
-    public void deleteBookedFlight(Flight flight) {
-        bookedFlightStorage.deleteById(flight.getId());
+    public void deleteBookedFlight(Long flightID) {
+        bookedFlightStorage.deleteById(flightID);
     }
 
     public Map<String, City[]> getAllCity() {

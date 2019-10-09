@@ -3,8 +3,8 @@ package com.codecool.fwu_backend.controller;
 import com.codecool.fwu_backend.model.Airport;
 import com.codecool.fwu_backend.model.Flight;
 import com.codecool.fwu_backend.model.Movie;
+import com.codecool.fwu_backend.model.dto.FlightDto;
 import com.codecool.fwu_backend.model.enums.City;
-import com.codecool.fwu_backend.repository.*;
 import com.codecool.fwu_backend.service.FlightService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class FlightsController {
 
     // todo: delete this:  localhost:8080/flights/list?from=budapest&to=barcelona&when=2019-09-24  működiiiiik!
     @GetMapping("list")
-    public List<Flight> getFlights(@RequestParam HashMap<String,String> map){
+    public List<FlightDto> getFlights(@RequestParam HashMap<String,String> map){
         String from = map.get("from").toUpperCase();
         String to = map.get("to").toUpperCase();
         String when = map.get("when").toUpperCase();
@@ -55,10 +55,10 @@ public class FlightsController {
         return flightService.findAllBooking();
     }
 
-    @PostMapping("book")
-    public void bookFlight(@RequestBody Flight flight) {
-        flightService.bookFlight(flight);
-
+    @PostMapping("/{id}/book")
+    public String bookFlight(@PathVariable Long id) {
+        flightService.bookFlight(id);
+        return "SUCCESS";
     }
 
     @PutMapping("book")
@@ -66,9 +66,10 @@ public class FlightsController {
         flightService.changeBookedFlight(flight);
     }
 
-    @DeleteMapping("book")
-    public void deleteBookedFlight(@RequestBody Flight flight) {
-        flightService.deleteBookedFlight(flight);
+    @DeleteMapping("/{id}/book")
+    public String deleteBookedFlight(@PathVariable Long id) {
+        flightService.deleteBookedFlight(id);
+        return "SUCCESS";
     }
 
     @GetMapping("/cities")
