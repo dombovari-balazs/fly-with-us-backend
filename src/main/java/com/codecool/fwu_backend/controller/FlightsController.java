@@ -61,18 +61,16 @@ public class FlightsController {
 
     @PutMapping("book")
     public void changeBookedFlight(@RequestBody Flight flight) {
-
+        flightService.changeBookedFlight(flight);
     }
 
     @DeleteMapping("book")
     public void deleteBookedFlight(@RequestBody Flight flight) {
-
+        flightService.deleteBookedFlight(flight);
     }
 
     @GetMapping("/cities")
     public Map<String,City[]> getCities(){
-        HashMap<String, City[]> map = new HashMap<>();
-        map.put("cities", City.values());
-        return map ;
+        return flightService.getAllCity();
     }
 }

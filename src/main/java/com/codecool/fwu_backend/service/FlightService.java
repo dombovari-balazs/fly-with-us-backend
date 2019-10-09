@@ -2,6 +2,7 @@ package com.codecool.fwu_backend.service;
 
 import com.codecool.fwu_backend.model.Airport;
 import com.codecool.fwu_backend.model.Flight;
+import com.codecool.fwu_backend.model.enums.City;
 import com.codecool.fwu_backend.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +65,20 @@ public class FlightService {
         Flight one = flightStorage.getOne(flight.getId());
         bookedFlightStorage.save(one);
         return true;
+    }
+
+    public void changeBookedFlight(Flight flight) {
+        bookedFlightStorage.deleteById(flight.getId());
+        bookedFlightStorage.save(flight);
+    }
+
+    public void deleteBookedFlight(Flight flight) {
+        bookedFlightStorage.deleteById(flight.getId());
+    }
+
+    public Map<String, City[]> getAllCity() {
+        HashMap<String, City[]> map = new HashMap<>();
+        map.put("cities", City.values());
+        return map;
     }
 }
