@@ -23,18 +23,11 @@ import java.util.Map;
 public class FlightsController {
 
     private FlightService flightService;
-    private BookedFlightStorage bookedFlightStorage;
-    private MovieStorage movieStorage;
-    private PublicTransportRepository publicTransportRepository;
-    private AirportRepository airportRepository;
-    private ProductRepository productRepository;
-    private TravelAgentStorage travelAgentStorage;
-
 
 
     @GetMapping("")
     public List<Flight> listFlights() {
-        return flightService.findAll();
+        return flightService.findAllFlight();
     }
 
 
@@ -47,31 +40,33 @@ public class FlightsController {
         return flightService.listFlights(from, to, when);
 
     }
-
+    // todo: it returns everything. Task: implement the DTO
     @GetMapping("/airports")
-    public List<Airport> getAirports() {
-        return airportRepository.findAll();
+    public List<Airport> getAirports()
+    {
+        return flightService.findAllAirport();
     }
 
-    @GetMapping("list/bookings")
+    @GetMapping("/bookings")
     public List<Flight> listBookedFlights() {
-        return bookedFlightStorage.findAll();
+
+        return flightService.findAllBooking();
     }
 
     @PostMapping("book")
     public void bookFlight(@RequestBody Flight flight) {
-        bookedFlightStorage.save(flight);
+        flightService.bookFlight(flight);
+
     }
 
     @PutMapping("book")
     public void changeBookedFlight(@RequestBody Flight flight) {
-        bookedFlightStorage.findById(flight.getId());
+
     }
 
     @DeleteMapping("book")
     public void deleteBookedFlight(@RequestBody Flight flight) {
-        Flight booked = bookedFlightStorage.findById(flight.getId()).get();
-        bookedFlightStorage.delete(booked);
+
     }
 
     @GetMapping("/cities")

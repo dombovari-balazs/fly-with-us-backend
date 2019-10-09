@@ -1,18 +1,26 @@
 package com.codecool.fwu_backend.service;
 
+import com.codecool.fwu_backend.model.Airport;
 import com.codecool.fwu_backend.model.Flight;
-import com.codecool.fwu_backend.repository.AvailableFlightStorage;
+import com.codecool.fwu_backend.repository.*;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Stream;
 
+@AllArgsConstructor
 @Service
 public class FlightService {
 
-    @Autowired
     private AvailableFlightStorage flightStorage;
+    private AirportRepository airportRepository;
+    private BookedFlightStorage bookedFlightStorage;
+    private MovieStorage movieStorage;  // todo: naming convention pls :DD
+    private PublicTransportRepository publicTransportRepository;
+    private ProductRepository productRepository;
+    private TravelAgentStorage travelAgentStorage;
 
     @Autowired
     private Random random;
@@ -39,7 +47,22 @@ public class FlightService {
         return flightStorage.getFlightsByCityFromAndCityToAndDate(from, to, when);
     }
 
-    public List<Flight> findAll() {
+    public List<Flight> findAllFlight() {
         return flightStorage.findAll();
+    }
+
+    public List<Airport> findAllAirport() {
+
+        return airportRepository.findAll();
+    }
+
+    public List<Flight> findAllBooking() {
+        return bookedFlightStorage.findAll();
+    }
+
+    public boolean bookFlight(Flight flight) {
+        Flight one = flightStorage.getOne(flight.getId());
+        bookedFlightStorage.save(one);
+        return true;
     }
 }
