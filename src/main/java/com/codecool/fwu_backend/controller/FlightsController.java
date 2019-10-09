@@ -2,23 +2,27 @@ package com.codecool.fwu_backend.controller;
 
 import com.codecool.fwu_backend.model.Airport;
 import com.codecool.fwu_backend.model.Flight;
+import com.codecool.fwu_backend.model.enums.City;
 import com.codecool.fwu_backend.repository.*;
 import com.codecool.fwu_backend.service.FlightService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+
+
 @Slf4j
 @RestController
 @CrossOrigin
 @RequestMapping("/flights")
+@AllArgsConstructor
+
 public class FlightsController {
 
-    private AvailableFlightStorage flightStorage;
+    private FlightService flightService;
     private BookedFlightStorage bookedFlightStorage;
     private MovieStorage movieStorage;
     private PublicTransportRepository publicTransportRepository;
@@ -26,39 +30,23 @@ public class FlightsController {
     private ProductRepository productRepository;
     private TravelAgentStorage travelAgentStorage;
 
-    public FlightsController(AvailableFlightStorage flightStorage,
-                                 MovieStorage movieStorage,
-                                 PublicTransportRepository publicTransportRepository,
-                                 AirportRepository airportRepository,
-                                 ProductRepository productRepository,
-                                 TravelAgentStorage travelAgentStorage,
-                                 BookedFlightStorage bookedFlightStorage) {
-        this.flightStorage = flightStorage;
-        this.movieStorage = movieStorage;
-        this.publicTransportRepository = publicTransportRepository;
-        this.airportRepository = airportRepository;
-        this.productRepository = productRepository;
-        this.travelAgentStorage = travelAgentStorage;
-        this.bookedFlightStorage = bookedFlightStorage;
-    }
 
 
     @GetMapping("/")
     public List<Flight> listFlights() {
-        return flightStorage.findAll();
-
+        //return flightStorage.findAll();
+        return null;
     }
 
 
+    // todo: delete this:  localhost:8080/flights/list?from=budapest&to=barcelona&when=2019-09-24  működiiiiik!
     @GetMapping("list")
-    public List<Flight> getFlights(@RequestParam String from,
-                                   @RequestParam String to,
-                                   @RequestParam String when) {
-        from = from.toUpperCase();
-        to = to.toUpperCase();
-        when = when.toUpperCase();
-        log.info(from, to, when);
-        return flightStorage.getFlightsByCityFromAndCityToAndDate(from, to, when);
+    public List<Flight> getFlights(@RequestParam HashMap<String,String> map){
+        String from = map.get("from").toUpperCase();
+        String to = map.get("to").toUpperCase();
+        String when = map.get("when").toUpperCase();
+        return flightService.listFlights(from, to, when);
+
     }
 
     @GetMapping("/airports")
@@ -85,5 +73,12 @@ public class FlightsController {
     public void deleteBookedFlight(@RequestBody Flight flight) {
         Flight booked = bookedFlightStorage.findById(flight.getId()).get();
         bookedFlightStorage.delete(booked);
+    }
+
+    @GetMapping("/cities")
+    public Map<String,City[]> getCities(){
+        HashMap<String, City[]> map = new HashMap<>();
+        map.put("cities", City.values());
+        return map ;
     }
 }

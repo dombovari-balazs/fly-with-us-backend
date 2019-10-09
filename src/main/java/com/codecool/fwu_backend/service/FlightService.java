@@ -35,13 +35,8 @@ public class FlightService {
         return flightStorage.findAll().get(0);
     }
 
-    public Flight findFlight(Long id) throws Exception {
-        for (Flight flight : flightStorage.findAll()) {
-            if (flight.getId().equals(id)){
-                return flight;
-            }
-        }
-        throw new Exception("Flight not found");
+    public List<Flight> listFlights(String from, String to, String when){
+        return flightStorage.getFlightsByCityFromAndCityToAndDate(from, to, when);
     }
 
 }
