@@ -32,10 +32,9 @@ public class FlightsController {
 
 
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<Flight> listFlights() {
-        //return flightStorage.findAll();
-        return null;
+        return flightService.findAll();
     }
 
 

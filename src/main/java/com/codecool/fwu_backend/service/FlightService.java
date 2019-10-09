@@ -39,4 +39,7 @@ public class FlightService {
         return flightStorage.getFlightsByCityFromAndCityToAndDate(from, to, when);
     }
 
+    public List<Flight> findAll() {
+        return flightStorage.findAll();
+    }
 }
