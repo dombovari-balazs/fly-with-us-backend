@@ -37,6 +37,7 @@ public class FlightsController {
         String from = map.get("from").toUpperCase();
         String to = map.get("to").toUpperCase();
         String when = map.get("when").toUpperCase();
+
         return flightService.listFlights(from, to, when);
 
     }
