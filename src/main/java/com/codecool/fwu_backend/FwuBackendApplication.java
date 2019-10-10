@@ -2,20 +2,16 @@ package com.codecool.fwu_backend;
 
 import com.codecool.fwu_backend.model.*;
 import com.codecool.fwu_backend.model.enums.City;
+import com.codecool.fwu_backend.model.enums.SeatType;
 import com.codecool.fwu_backend.repository.*;
-import com.codecool.fwu_backend.service.FlightCreator;
 import com.codecool.fwu_backend.service.FlightService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import javax.accessibility.AccessibleValue;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

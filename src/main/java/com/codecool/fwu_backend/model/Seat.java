@@ -1,6 +1,6 @@
 package com.codecool.fwu_backend.model;
 
-import com.codecool.fwu_backend.repository.SeatRepository;
+import com.codecool.fwu_backend.model.enums.SeatType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

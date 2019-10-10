@@ -3,6 +3,7 @@ package com.codecool.fwu_backend.service;
 import com.codecool.fwu_backend.model.*;
 import com.codecool.fwu_backend.model.dto.FlightDto;
 import com.codecool.fwu_backend.model.enums.City;
+import com.codecool.fwu_backend.model.enums.SeatType;
 import com.codecool.fwu_backend.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

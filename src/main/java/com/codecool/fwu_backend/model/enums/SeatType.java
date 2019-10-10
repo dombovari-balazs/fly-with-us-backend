@@ -1,4 +1,4 @@
-package com.codecool.fwu_backend.model;
+package com.codecool.fwu_backend.model.enums;
 
 public enum SeatType {
     SHORT,
