@@ -25,11 +25,21 @@ public class Seat {
 
     private int position;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private User user;
 
     @JsonIgnore
     @ManyToOne
     private Flight flight;
 
+    @Override
+    public String toString() {
+        return "Seat{" +
+                "id=" + id +
+                ", type=" + type +
+                ", position=" + position +
+                ", user=" + user +
+                ", flight=" + flight +
+                '}';
+    }
 }

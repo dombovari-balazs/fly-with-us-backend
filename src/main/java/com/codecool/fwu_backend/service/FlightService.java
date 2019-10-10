@@ -70,14 +70,18 @@ public class FlightService {
         Flight one = flightStorage.getOne(flightID);
         List<Seat> seats = seatRepository.listAllAvailableSeatByFlightId(one);
 
-        return seats.get(random.nextInt(50));
+        Seat seat =  seats.get(random.nextInt(50));
+        seat.setUser(new User());
+        seatRepository.save(seat);
+        return seat;
     }
 
     public void changeBookedFlight(Flight flight) {
 
     }
 
-    public void deleteBookedFlight(Long flightID) {
+    public void deleteBooking(Long seatId) {
+        seatRepository.deleteBookingBySeatId(seatId);
     }
 
     public Map<String, City[]> getAllCity() {

@@ -67,9 +67,8 @@ public class FlightsController {
     }
 
     @DeleteMapping("/{id}/book")
-    public String deleteBookedFlight(@PathVariable Long id) {
-        flightService.deleteBookedFlight(id);
-        return "SUCCESS";
+    public void deleteBookedFlight(@PathVariable Long id) {
+        flightService.deleteBooking(id);
     }
 
     @GetMapping("/cities")
