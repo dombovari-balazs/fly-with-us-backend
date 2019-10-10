@@ -19,7 +19,6 @@ public class FlightService {
 
     private AvailableFlightStorage flightStorage;
     private AirportRepository airportRepository;
-    private BookedFlightStorage bookedFlightStorage;
     private MovieStorage movieStorage;  // todo: naming convention pls :DD
     private PublicTransportRepository publicTransportRepository;
     private ProductRepository productRepository;
@@ -63,22 +62,20 @@ public class FlightService {
     }
 
     public List<Flight> findAllBooking() {
-        return bookedFlightStorage.findAll();
+        return null;
     }
 
     public boolean bookFlight(Long flightID) {
         Flight one = flightStorage.getOne(flightID);
-        //one.bookASeat();
+
         return true;
     }
 
     public void changeBookedFlight(Flight flight) {
-        bookedFlightStorage.deleteById(flight.getId());
-        bookedFlightStorage.save(flight);
+
     }
 
     public void deleteBookedFlight(Long flightID) {
-        bookedFlightStorage.deleteById(flightID);
     }
 
     public Map<String, City[]> getAllCity() {
