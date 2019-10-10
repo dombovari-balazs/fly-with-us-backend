@@ -52,7 +52,19 @@ public class Flight {
     @ManyToMany(mappedBy = "flights")
     @Singular("oneMovie")
     private List<Movie> movies = new ArrayList<>();
-    
 
-
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "id=" + id +
+                ", cityTo='" + cityTo + '\'' +
+                ", cityFrom='" + cityFrom + '\'' +
+                ", date='" + date + '\'' +
+                ", classQuality=" + classQuality +
+                ", price=" + price +
+                ", company=" + company +
+                ", seats=" + seats +
+                ", movies=" + movies +
+                '}';
+    }
 }

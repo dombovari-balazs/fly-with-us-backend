@@ -66,10 +66,11 @@ public class FlightService {
         return null;
     }
 
-    public boolean bookFlight(Long flightID) {
+    public Seat bookFlight(Long flightID) {
         Flight one = flightStorage.getOne(flightID);
+        List<Seat> seats = seatRepository.listAllAvailableSeatByFlightId(one);
 
-        return true;
+        return seats.get(random.nextInt(50));
     }
 
     public void changeBookedFlight(Flight flight) {

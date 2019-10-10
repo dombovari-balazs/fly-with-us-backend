@@ -3,6 +3,7 @@ package com.codecool.fwu_backend.controller;
 import com.codecool.fwu_backend.model.Airport;
 import com.codecool.fwu_backend.model.Flight;
 import com.codecool.fwu_backend.model.Movie;
+import com.codecool.fwu_backend.model.Seat;
 import com.codecool.fwu_backend.model.dto.FlightDto;
 import com.codecool.fwu_backend.model.enums.City;
 import com.codecool.fwu_backend.service.FlightService;
@@ -56,9 +57,8 @@ public class FlightsController {
     }
 
     @PostMapping("/{id}/book")
-    public String bookFlight(@PathVariable Long id) {
-        flightService.bookFlight(id);
-        return "SUCCESS";
+    public Seat bookFlight(@PathVariable Long id) {
+        return flightService.bookFlight(id);
     }
 
     @PutMapping("book")

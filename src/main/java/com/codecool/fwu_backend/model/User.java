@@ -1,5 +1,6 @@
 package com.codecool.fwu_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class User {
 
     private String name;
 
+    @JsonIgnore
     @OneToOne
     private Seat seat;
 }

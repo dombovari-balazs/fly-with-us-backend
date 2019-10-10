@@ -1,6 +1,7 @@
 package com.codecool.fwu_backend.model;
 
 import com.codecool.fwu_backend.model.enums.SeatType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,10 +24,11 @@ public class Seat {
     private SeatType type;
 
     private int position;
+
     @OneToOne
     private User user;
 
-
+    @JsonIgnore
     @ManyToOne
     private Flight flight;
 
