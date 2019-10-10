@@ -55,7 +55,7 @@ public class FlightsController {
         return flightService.findAllBooking();
     }
 
-    @PostMapping("/{id}/book")
+    @PutMapping("/{id}/book")
     public String bookFlight(@PathVariable Long id) {
         flightService.bookFlight(id);
         return "SUCCESS";
