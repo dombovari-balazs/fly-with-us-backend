@@ -24,6 +24,7 @@ public class FlightService {
     private PublicTransportRepository publicTransportRepository;
     private ProductRepository productRepository;
     private TravelAgentStorage travelAgentStorage;
+    private SeatRepository seatRepository;
 
     @Autowired
     private Random random;
@@ -90,5 +91,18 @@ public class FlightService {
         return flightStorage.getOne(id).getMovies();
     }
 
+    public  List<Seat> getAmountOfSeats(int amount, SeatType seatType){
+
+        return IntStream.range(0, amount).boxed()
+                .map(integer ->
+                        Seat.builder()
+                                .position(integer)
+                                .type(seatType)
+                                .build()
+
+                )
+                .collect(Collectors.toList());
+
+    }
 
 }

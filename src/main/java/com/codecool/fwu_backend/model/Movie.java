@@ -23,7 +23,7 @@ public class Movie {
 
     @JsonIgnore
     @Singular("oneFlight")
-    @ManyToMany(mappedBy = "movies", cascade = CascadeType.ALL)
+    @ManyToMany
     private List<Flight> flights = new ArrayList<>();
 
 }

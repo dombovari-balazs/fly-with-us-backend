@@ -11,11 +11,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Random;
-
+import java.util.*;
 
 
 @Entity
@@ -31,8 +27,6 @@ public class Flight {
         this.classQuality = ClassQuality.getRandomClass();
         this.price = random.nextDouble()*100;
         this.company = Company.getRandomClass();
-        this.availableSeats = 200;
-        this.seats = Seat.getAmountOfSeats(availableSeats, SeatType.SHORT);
     }
 
     @Id
@@ -51,24 +45,14 @@ public class Flight {
     @Enumerated(EnumType.STRING)
     private Company company;
 
-    private Queue<Seat> seats;
-    private int availableSeats;
+    @OneToMany(mappedBy = "flight", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Seat> seats = new LinkedList<>();
+
     @JsonIgnore
-    @ManyToMany()
+    @ManyToMany(mappedBy = "flights")
     @Singular("oneMovie")
-    @JoinTable(
-            name = "Flight_movies",
-            joinColumns = { @JoinColumn(name = "movie_id") },
-            inverseJoinColumns = { @JoinColumn(name = "flight_id") }
-    )
     private List<Movie> movies = new ArrayList<>();
     
-    public int getNumberOfAvailableSeats(){
-        return availableSeats;
-    }
-    public Seat bookSeat(){
-        this.availableSeats--;
-        return seats.peek();
-    }
+
 
 }
