@@ -68,7 +68,7 @@ public class FlightService {
 
     public boolean bookFlight(Long flightID) {
         Flight one = flightStorage.getOne(flightID);
-        bookedFlightStorage.save(one);
+        //one.bookASeat();
         return true;
     }
 

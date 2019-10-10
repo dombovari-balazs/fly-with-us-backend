@@ -13,6 +13,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 
 
@@ -48,6 +49,7 @@ public class Flight {
     @Enumerated(EnumType.STRING)
     private Company company;
 
+    private Queue<Seat> seats;
     @JsonIgnore
     @ManyToMany()
     @Singular("oneMovie")
@@ -57,4 +59,6 @@ public class Flight {
             inverseJoinColumns = { @JoinColumn(name = "flight_id") }
     )
     private List<Movie> movies = new ArrayList<>();
+
+
 }
