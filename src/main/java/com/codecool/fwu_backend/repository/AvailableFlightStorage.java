@@ -14,5 +14,4 @@ public interface AvailableFlightStorage extends JpaRepository<Flight, Long> {
     List<Flight> getFlightsByCityFromAndCityToAndDate(String cityFrom, String cityTo, String date);
 
 
-    List<Seat> getAllAvailableSeatByFlightId();
 }

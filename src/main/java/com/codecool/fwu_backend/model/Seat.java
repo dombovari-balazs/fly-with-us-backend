@@ -23,6 +23,8 @@ public class Seat {
     private SeatType type;
 
     private int position;
+    @OneToOne
+    private User user;
 
 
     @ManyToOne
