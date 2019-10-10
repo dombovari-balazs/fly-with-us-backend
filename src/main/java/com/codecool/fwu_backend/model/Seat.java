@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -20,18 +21,19 @@ import java.util.stream.IntStream;
 @Entity
 public class Seat {
 
+
     private Long id;
 
     private SeatType type;
 
     private int position;
 
-    public static Queue<Seat> getAmountOfSeats(int amount){
-       return IntStream.range(0, amount).boxed()
+    public static Queue<Seat> getAmountOfSeats(int amount, SeatType seatType){
+        return IntStream.range(0, amount).boxed()
                 .map(integer ->
                         Seat.builder()
                                 .position(integer)
-                                .type(SeatType.LONG)
+                                .type(seatType)
                                 .build()
                 )
                 .collect(Collectors.toCollection(PriorityQueue::new));

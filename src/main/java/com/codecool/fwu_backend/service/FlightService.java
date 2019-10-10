@@ -1,8 +1,6 @@
 package com.codecool.fwu_backend.service;
 
-import com.codecool.fwu_backend.model.Airport;
-import com.codecool.fwu_backend.model.Flight;
-import com.codecool.fwu_backend.model.Movie;
+import com.codecool.fwu_backend.model.*;
 import com.codecool.fwu_backend.model.dto.FlightDto;
 import com.codecool.fwu_backend.model.enums.City;
 import com.codecool.fwu_backend.repository.*;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @AllArgsConstructor
@@ -90,4 +89,6 @@ public class FlightService {
     public List<Movie> listMovieByFlightId(Long id) {
         return flightStorage.getOne(id).getMovies();
     }
+
+
 }

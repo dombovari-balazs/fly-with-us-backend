@@ -31,6 +31,8 @@ public class Flight {
         this.classQuality = ClassQuality.getRandomClass();
         this.price = random.nextDouble()*100;
         this.company = Company.getRandomClass();
+        this.availableSeats = 200;
+        this.seats = Seat.getAmountOfSeats(availableSeats, SeatType.SHORT);
     }
 
     @Id
@@ -50,6 +52,7 @@ public class Flight {
     private Company company;
 
     private Queue<Seat> seats;
+    private int availableSeats;
     @JsonIgnore
     @ManyToMany()
     @Singular("oneMovie")
@@ -59,6 +62,13 @@ public class Flight {
             inverseJoinColumns = { @JoinColumn(name = "flight_id") }
     )
     private List<Movie> movies = new ArrayList<>();
-
+    
+    public int getNumberOfAvailableSeats(){
+        return availableSeats;
+    }
+    public Seat bookSeat(){
+        this.availableSeats--;
+        return seats.peek();
+    }
 
 }
