@@ -2,6 +2,7 @@ package com.codecool.fwu_backend.model;
 
 import com.codecool.fwu_backend.model.enums.ClassQuality;
 import com.codecool.fwu_backend.model.enums.Company;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -47,7 +48,13 @@ public class Flight {
     @Enumerated(EnumType.STRING)
     private Company company;
 
-    @ElementCollection
-    @Singular
+    @JsonIgnore
+    @ManyToMany()
+    @Singular("oneMovie")
+    @JoinTable(
+            name = "Flight_movies",
+            joinColumns = { @JoinColumn(name = "movie_id") },
+            inverseJoinColumns = { @JoinColumn(name = "flight_id") }
+    )
     private List<Movie> movies = new ArrayList<>();
 }

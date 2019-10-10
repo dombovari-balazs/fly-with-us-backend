@@ -5,6 +5,7 @@ import com.codecool.fwu_backend.model.enums.City;
 import com.codecool.fwu_backend.repository.*;
 import com.codecool.fwu_backend.service.FlightCreator;
 import com.codecool.fwu_backend.service.FlightService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,8 +15,11 @@ import org.springframework.context.annotation.Bean;
 
 import javax.accessibility.AccessibleValue;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+@AllArgsConstructor
 @SpringBootApplication
 @Slf4j
 public class FwuBackendApplication {
@@ -27,22 +31,7 @@ public class FwuBackendApplication {
     private AirportRepository airportRepository;
     private ProductRepository productRepository;
     private TravelAgentStorage travelAgentStorage;
-
-    public FwuBackendApplication(AvailableFlightStorage flightStorage,
-                                 FlightService flightService,
-                                 MovieStorage movieStorage,
-                                 PublicTransportRepository publicTransportRepository,
-                                 AirportRepository airportRepository,
-                                 ProductRepository productRepository,
-                                 TravelAgentStorage travelAgentStorage) {
-        this.flightStorage = flightStorage;
-        this.flightService = flightService;
-        this.movieStorage = movieStorage;
-        this.publicTransportRepository = publicTransportRepository;
-        this.airportRepository = airportRepository;
-        this.productRepository = productRepository;
-        this.travelAgentStorage = travelAgentStorage;
-    }
+    private ImageRepository imageRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(FwuBackendApplication.class, args);
@@ -54,22 +43,36 @@ public class FwuBackendApplication {
             //flightService.addRandomAmountOfFlight(City.BUDAPEST.name(),City.BARCELONA.name(), "2019-09-24");
             //log.info(flightService.getOneFlight().toString());
 
+            Image budapest = Image.builder()
+                    .city(City.BUDAPEST)
+                    .link("https://www.thenational.ae/image/policy:1.906591:1567660612/lf04-SEP-travel-budapest01.jpg?f=16x9&w=1200&$p$f$w=42f8404")
+                    .build();
+            imageRepository.save(budapest);
+
+            Image barcelona = Image.builder()
+                    .city(City.BARCELONA)
+                    .link("")
+                    .build();
+            imageRepository.save(barcelona);
+
 
             Movie movie1 = Movie.builder()
                     .title("Airplane!")
                     .length(120)
                     .build();
-            movieStorage.save(movie1);
 
             Flight example = Flight.builder()
                     .cityFrom(City.BUDAPEST.name())
                     .cityTo(City.BARCELONA.name())
                     .date("2019-09-24")
-                    .movies(movieStorage.findAll())
+                    .oneMovie(movie1)
                     .build();
             example.fillUpWithGeneratedValues();
+            movie1.setFlights(Collections.singletonList(example));
 
+            movieStorage.save(movie1);
             flightStorage.save(example);
+
 
             TravelAgent travelAgent = TravelAgent.builder()
                     .name("WizHair")
@@ -92,7 +95,6 @@ public class FwuBackendApplication {
 
             flightStorage.saveAndFlush(example2);
 
-            log.info(flightStorage.findAll().toString());
 
             PublicTransport bkk = PublicTransport.builder()
                     .name("BKK")
@@ -118,7 +120,6 @@ public class FwuBackendApplication {
             liszt_ferenc_airport.setProducts(productRepository.findAll());
             airportRepository.save(liszt_ferenc_airport);
 
-            log.info(liszt_ferenc_airport.toString());
 
 
         };
