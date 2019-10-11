@@ -2,20 +2,16 @@ package com.codecool.fwu_backend;
 
 import com.codecool.fwu_backend.model.*;
 import com.codecool.fwu_backend.model.enums.City;
+import com.codecool.fwu_backend.model.enums.SeatType;
 import com.codecool.fwu_backend.repository.*;
-import com.codecool.fwu_backend.service.FlightCreator;
 import com.codecool.fwu_backend.service.FlightService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import javax.accessibility.AccessibleValue;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,6 +28,7 @@ public class FwuBackendApplication {
     private ProductRepository productRepository;
     private TravelAgentStorage travelAgentStorage;
     private ImageRepository imageRepository;
+    private SeatRepository seatRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(FwuBackendApplication.class, args);
@@ -61,18 +58,19 @@ public class FwuBackendApplication {
                     .length(120)
                     .build();
 
+            List<Seat> seats = flightService.getAmountOfSeats(200, SeatType.SHORT);
             Flight example = Flight.builder()
                     .cityFrom(City.BUDAPEST.name())
                     .cityTo(City.BARCELONA.name())
                     .date("2019-09-24")
                     .oneMovie(movie1)
+                    .seats(seats)
                     .build();
+            seats.forEach(seat -> seat.setFlight(example));
             example.fillUpWithGeneratedValues();
             movie1.setFlights(Collections.singletonList(example));
-
-            movieStorage.save(movie1);
             flightStorage.save(example);
-
+            movieStorage.save(movie1);
 
             TravelAgent travelAgent = TravelAgent.builder()
                     .name("WizHair")

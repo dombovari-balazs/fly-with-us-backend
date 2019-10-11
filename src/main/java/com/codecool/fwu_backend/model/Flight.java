@@ -11,10 +11,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
+import java.util.*;
 
 
 @Entity
@@ -48,13 +45,26 @@ public class Flight {
     @Enumerated(EnumType.STRING)
     private Company company;
 
+    @OneToMany(mappedBy = "flight", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Seat> seats = new LinkedList<>();
+
     @JsonIgnore
-    @ManyToMany()
+    @ManyToMany(mappedBy = "flights")
     @Singular("oneMovie")
-    @JoinTable(
-            name = "Flight_movies",
-            joinColumns = { @JoinColumn(name = "movie_id") },
-            inverseJoinColumns = { @JoinColumn(name = "flight_id") }
-    )
     private List<Movie> movies = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "id=" + id +
+                ", cityTo='" + cityTo + '\'' +
+                ", cityFrom='" + cityFrom + '\'' +
+                ", date='" + date + '\'' +
+                ", classQuality=" + classQuality +
+                ", price=" + price +
+                ", company=" + company +
+                ", seats=" + seats +
+                ", movies=" + movies +
+                '}';
+    }
 }

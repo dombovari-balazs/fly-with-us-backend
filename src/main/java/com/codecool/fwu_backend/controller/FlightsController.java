@@ -3,6 +3,7 @@ package com.codecool.fwu_backend.controller;
 import com.codecool.fwu_backend.model.Airport;
 import com.codecool.fwu_backend.model.Flight;
 import com.codecool.fwu_backend.model.Movie;
+import com.codecool.fwu_backend.model.Seat;
 import com.codecool.fwu_backend.model.dto.FlightDto;
 import com.codecool.fwu_backend.model.enums.City;
 import com.codecool.fwu_backend.service.FlightService;
@@ -67,9 +68,8 @@ public class FlightsController {
     }
 
     @DeleteMapping("/{id}/book")
-    public String deleteBookedFlight(@PathVariable Long id) {
-        flightService.deleteBookedFlight(id);
-        return "SUCCESS";
+    public void deleteBookedFlight(@PathVariable Long id) {
+        flightService.deleteBooking(id);
     }
 
     @GetMapping("/cities")
