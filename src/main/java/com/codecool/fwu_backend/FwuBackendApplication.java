@@ -59,6 +59,7 @@ public class FwuBackendApplication {
                     .build();
 
             List<Seat> seats = flightService.getAmountOfSeats(200, SeatType.SHORT);
+            List<Seat> seats2 = flightService.getAmountOfSeats(200, SeatType.SHORT);
             Flight example = Flight.builder()
                     .cityFrom(City.BUDAPEST.name())
                     .cityTo(City.BARCELONA.name())
@@ -88,8 +89,10 @@ public class FwuBackendApplication {
                     .cityFrom(City.BUDAPEST.name())
                     .cityTo(City.BARCELONA.name())
                     .date("2019-09 -25")
+                    .seats(seats2)
                     .build();
             example2.fillUpWithGeneratedValues();
+            seats2.forEach(seat -> seat.setFlight(example2));
 
             flightStorage.saveAndFlush(example2);
 

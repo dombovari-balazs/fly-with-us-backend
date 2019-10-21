@@ -83,8 +83,8 @@ public class FlightService {
 
     }
 
-    public void deleteBooking(Long seatId) {
-        seatRepository.deleteBookingBySeatId(seatId);
+    public int deleteBooking(Long seatId) {
+        return seatRepository.deleteBookingBySeatId(seatId);
     }
 
     public Map<String, City[]> getAllCity() {
