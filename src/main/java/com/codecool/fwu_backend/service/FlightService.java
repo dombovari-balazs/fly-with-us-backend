@@ -53,8 +53,11 @@ public class FlightService {
 
     }
 
-    public List<Flight> findAllFlight() {
-        return flightStorage.findAll();
+    public List<FlightDto> findAllFlight() {
+        return flightStorage.findAll()
+                .stream()
+                .map(FlightDto::new)
+                .collect(Collectors.toList());
     }
 
     public List<Airport> findAllAirport() {
