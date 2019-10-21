@@ -49,7 +49,7 @@ public class Flight {
     private List<Seat> seats = new LinkedList<>();
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "flights")
+    @ManyToMany(mappedBy = "flights", cascade = {CascadeType.MERGE, CascadeType.PERSIST} )
     @Singular("oneMovie")
     private List<Movie> movies = new ArrayList<>();
 

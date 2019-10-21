@@ -27,10 +27,6 @@ public class FlightsController {
     private FlightService flightService;
 
 
-    @GetMapping("")
-    public List<Flight> listFlights() {
-        return flightService.findAllFlight();
-    }
 
 
     // todo: delete this:  localhost:8080/flights/list?from=budapest&to=barcelona&when=2019-09-24  működiiiiik!

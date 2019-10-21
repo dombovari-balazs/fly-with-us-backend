@@ -11,6 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +35,7 @@ public class FwuBackendApplication {
         SpringApplication.run(FwuBackendApplication.class, args);
     }
 
+    @Profile("production")
     @Bean
     public CommandLineRunner init() {
         return args -> {
@@ -71,7 +73,6 @@ public class FwuBackendApplication {
             example.fillUpWithGeneratedValues();
             movie1.setFlights(Collections.singletonList(example));
             flightStorage.save(example);
-            movieStorage.save(movie1);
 
             TravelAgent travelAgent = TravelAgent.builder()
                     .name("WizHair")

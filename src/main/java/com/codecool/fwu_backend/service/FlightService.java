@@ -30,23 +30,6 @@ public class FlightService {
     private Random random;
 
 
-
-    public void addRandomAmountOfFlight(String to, String from, String when){
-        Stream.generate(() -> Flight.builder()
-                .cityFrom(from)
-                .cityTo(to)
-                .date(when)
-                .build() )
-                .limit(random.nextInt(20))
-                .forEach(flight -> {
-                    flight.fillUpWithGeneratedValues();
-                    flightStorage.save(flight);
-                });
-    }
-    public Flight getOneFlight(){
-        return flightStorage.findAll().get(0);
-    }
-
     public List<FlightDto> listFlights(String from, String to, String when){
         List<Flight> flights = flightStorage.getFlightsByCityFromAndCityToAndDate(from, to, when);
         return flights.stream().map(FlightDto::new).collect(Collectors.toList());
