@@ -17,5 +17,5 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
     @Transactional
     @Modifying
     @Query("UPDATE Seat Set user=null WHERE id = ?1")
-    void deleteBookingBySeatId(Long seatId);
+    int deleteBookingBySeatId(Long seatId);
 }
