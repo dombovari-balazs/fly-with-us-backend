@@ -1,35 +1,54 @@
 package com.codecool.fwu_backend.service;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Random;
+class FlightServiceTest {
 
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyObject;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+    @org.junit.jupiter.api.Test
+    void addRandomAmountOfFlight() {
+    }
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
-public class FlightServiceTest {
+    @org.junit.jupiter.api.Test
+    void getOneFlight() {
+    }
 
-    @MockBean
-    Random random;
+    @org.junit.jupiter.api.Test
+    void listFlights() {
+    }
 
-    @Autowired
-    FlightService flightService;
+    @org.junit.jupiter.api.Test
+    void findAllFlight() {
+    }
 
+    @org.junit.jupiter.api.Test
+    void findAllAirport() {
+    }
 
-    @Test
-    public void addRandomAmountOfFlight() {
-        Mockito.when(random.nextInt(anyInt())).thenReturn(20);
-        flightService.addRandomAmountOfFlight("ABC", "DEF", "2019-09-21");
-        //verify(flightStorage, times(20)).add(anyObject());
+    @org.junit.jupiter.api.Test
+    void findAllBooking() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void bookFlight() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void changeBookedFlight() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void deleteBooking() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void getAllCity() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void listMovieByFlightId() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void getAmountOfSeats() {
     }
 }
