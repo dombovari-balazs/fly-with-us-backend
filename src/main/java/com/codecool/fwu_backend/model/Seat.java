@@ -26,7 +26,7 @@ public class Seat {
     private int position;
 
     @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private User user;
+    private FWUAppUser user;
 
     @JsonIgnore
     @ManyToOne

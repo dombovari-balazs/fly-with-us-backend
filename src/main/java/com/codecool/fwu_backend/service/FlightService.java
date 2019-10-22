@@ -74,7 +74,7 @@ public class FlightService {
         List<Seat> seats = seatRepository.listAllAvailableSeatByFlightId(one);
 
         Seat seat =  seats.get(random.nextInt(50));
-        seat.setUser(new User());
+        seat.setUser(new FWUAppUser());
         seatRepository.save(seat);
         return seat;
     }

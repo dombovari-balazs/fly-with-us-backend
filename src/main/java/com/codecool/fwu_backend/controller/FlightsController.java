@@ -28,7 +28,7 @@ public class FlightsController {
 
 
     @GetMapping("")
-    public List<Flight> listFlights() {
+    public List<FlightDto> listFlights() {
         return flightService.findAllFlight();
     }
 
