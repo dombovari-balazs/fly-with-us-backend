@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -32,13 +33,12 @@ class FlightServiceTest {
     @Autowired
     private FlightService flightService;
 
-    private String from =  "from";
-    private String to =  "to";
-    private String when =  "when";
-    
-    private String fromBad =  "fromko";
-    private String toBad =  "toko";
-    private String whenBad =  "whenko";
+    private final String from =  "from";
+    private final String to =  "to";
+    private final String when =  "when";
+    private final String fromBad =  "fromko";
+    private final String toBad =  "toko";
+    private final String whenBad =  "whenko";
 
 
     /**
@@ -54,16 +54,32 @@ class FlightServiceTest {
     @Test
     void listFlights() {
 
-        List<Flight> flights = IntStream.range(0, 10).boxed()
+        List<Flight> flightGood = IntStream.range(0, 10).boxed()
                 .map(integer -> Flight.builder().cityFrom(from).cityTo(to).date(when).build())
                 .collect(Collectors.toList());
-        Mockito.when(flightStorage.getFlightsByCityFromAndCityToAndDate(from,to,when)).thenReturn(flights);
+        List<Flight> flightBad = IntStream.range(0, 8).boxed()
+                .map(integer -> Flight.builder().cityFrom(fromBad).cityTo(fromBad).date(fromBad).build())
+                .collect(Collectors.toList());
+        Mockito.when(flightStorage.getFlightsByCityFromAndCityToAndDate(from,to,when)).thenReturn(flightGood);
+        Mockito.when(flightStorage.getFlightsByCityFromAndCityToAndDate(fromBad,toBad,whenBad)).thenReturn(flightBad);
         assertEquals(flightService.listFlights(from,to,when).size(), 10);
 
     }
 
     @org.junit.jupiter.api.Test
     void findAllFlight() {
+        int size = 10;
+        List<Flight> flightGood = IntStream.range(0, size).boxed()
+                .map(integer -> Flight.builder().cityFrom(from).cityTo(to).date(when).build())
+                .collect(Collectors.toList());
+        List<Flight> flightBad = IntStream.range(0, size).boxed()
+                .map(integer -> Flight.builder().cityFrom(fromBad).cityTo(fromBad).date(fromBad).build())
+                .collect(Collectors.toList());
+        List<Flight> flights = new ArrayList<>();
+        flights.addAll(flightBad);
+        flights.addAll(flightGood);
+        Mockito.when(flightStorage.findAll()).thenReturn(flights);
+        assertEquals(flightService.findAllFlight().size(), size * 2 );
     }
 
     @org.junit.jupiter.api.Test
