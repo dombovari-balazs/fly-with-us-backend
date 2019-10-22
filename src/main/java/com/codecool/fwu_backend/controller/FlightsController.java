@@ -57,9 +57,8 @@ public class FlightsController {
     }
 
     @PutMapping("/{id}/book")
-    public String bookFlight(@PathVariable Long id) {
-        flightService.bookFlight(id);
-        return "SUCCESS";
+    public Seat bookFlight(@PathVariable Long id) {
+        return flightService.bookFlight(id);
     }
 
     @PutMapping("book")
@@ -68,8 +67,8 @@ public class FlightsController {
     }
 
     @DeleteMapping("/{id}/book")
-    public void deleteBookedFlight(@PathVariable Long id) {
-        flightService.deleteBooking(id);
+    public int deleteBookedFlight(@PathVariable Long id) {
+        return flightService.deleteBooking(id);
     }
 
     @GetMapping("/cities")
