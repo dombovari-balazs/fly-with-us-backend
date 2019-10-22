@@ -1,18 +1,18 @@
 package com.codecool.fwu_backend.service;
 
+import com.codecool.fwu_backend.model.Airport;
 import com.codecool.fwu_backend.model.Flight;
+import com.codecool.fwu_backend.model.Product;
+import com.codecool.fwu_backend.model.enums.City;
+import com.codecool.fwu_backend.repository.AirportRepository;
 import com.codecool.fwu_backend.repository.AvailableFlightStorage;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -20,15 +20,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class FlightServiceTest {
     @MockBean
     private AvailableFlightStorage flightStorage;
+
+    @MockBean
+    private AirportRepository airportRepository;
 
     @Autowired
     private FlightService flightService;
@@ -84,6 +87,16 @@ class FlightServiceTest {
 
     @org.junit.jupiter.api.Test
     void findAllAirport() {
+        int size = 10;
+        List<Airport> airports = IntStream.range(0, size).boxed()
+                .map(Integer -> (Airport
+                        .builder()
+                        .city(City.BUDAPEST)
+                        .name("EXAMPLE")
+                        .build()))
+                .collect(Collectors.toList());
+        Mockito.when(airportRepository.findAll()).thenReturn(airports);
+        assertThat(flightService.findAllAirport()).containsSequence(airports);
     }
 
     @org.junit.jupiter.api.Test
