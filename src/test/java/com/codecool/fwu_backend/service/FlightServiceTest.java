@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
@@ -79,7 +80,8 @@ class FlightServiceTest {
         flights.addAll(flightBad);
         flights.addAll(flightGood);
         Mockito.when(flightStorage.findAll()).thenReturn(flights);
-        assertEquals(flightService.findAllFlight().size(), size * 2 );
+        assertThat(flightService.findAllFlight()).hasSize(size * 2);
+
     }
 
     @org.junit.jupiter.api.Test
