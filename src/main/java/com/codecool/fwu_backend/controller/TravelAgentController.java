@@ -1,11 +1,13 @@
 package com.codecool.fwu_backend.controller;
 
+import com.codecool.fwu_backend.model.Flight;
+import com.codecool.fwu_backend.model.TravelAgent;
+import com.codecool.fwu_backend.service.TravelAgentService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -13,11 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/agents")
 @AllArgsConstructor
 public class TravelAgentController {
+    private TravelAgentService travelAgentService;
 
     @GetMapping("list")
-    public List<> getFlights(){
+    public List<TravelAgent> listTravelAgents(){
+        return travelAgentService.listTravelAgents();
+    }
 
-        return ;
-
+    @PostMapping("list")
+    public List<Flight> listFlightByAgent(@RequestBody String agent){
+        return travelAgentService.listFlightByAgent(agent);
     }
 }

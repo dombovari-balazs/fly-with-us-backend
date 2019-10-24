@@ -53,6 +53,10 @@ public class Flight {
     @Singular("oneMovie")
     private List<Movie> movies = new ArrayList<>();
 
+    @JsonIgnore
+    @ManyToOne
+    private TravelAgent travelAgent;
+
     @Override
     public String toString() {
         return "Flight{" +

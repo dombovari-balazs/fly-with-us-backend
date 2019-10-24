@@ -1,11 +1,9 @@
 package com.codecool.fwu_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class TravelAgent {
     private float rating;
     private String website;
 
-    @ElementCollection
     @Singular
-    List<Flight> flights = new ArrayList<>();
+    @OneToMany(mappedBy = "travelAgent", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Flight> flights;
 }
