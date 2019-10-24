@@ -56,9 +56,9 @@ public class FlightsController {
         return flightService.findAllBooking();
     }
 
-    @PutMapping("/{id}/book/{uId}")
-    public Seat bookFlight(@PathVariable Long id, @PathVariable Long uId) {
-        return flightService.bookFlight(id, uId);
+    @PutMapping("/{flightId}/book/{uId}")
+    public Seat bookFlight(@PathVariable Long flightId, @PathVariable Long uId) {
+        return flightService.bookFlight(flightId, uId);
     }
 
     @PutMapping("book")
@@ -66,9 +66,9 @@ public class FlightsController {
         flightService.changeBookedFlight(flight);
     }
 
-    @DeleteMapping("/{id}/book")
-    public int deleteBookedFlight(@PathVariable Long id) {
-        return flightService.deleteBooking(id);
+    @DeleteMapping("/{seatId}/book")
+    public int deleteBookedFlight(@PathVariable Long seatId) {
+        return flightService.deleteBooking(seatId);
     }
 
     @GetMapping("/cities")
