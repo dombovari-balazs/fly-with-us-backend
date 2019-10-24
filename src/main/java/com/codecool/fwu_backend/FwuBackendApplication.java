@@ -64,7 +64,7 @@ public class FwuBackendApplication {
             Flight example = Flight.builder()
                     .cityFrom(City.BUDAPEST.name())
                     .cityTo(City.BARCELONA.name())
-                    .date("2019-09-24")
+                    .date("2019-10-24")
                     .oneMovie(movie1)
                     .seats(seats)
                     .build();
@@ -78,7 +78,7 @@ public class FwuBackendApplication {
                     .name("WizHair")
                     .rating(5f)
                     .website("localhost")
-                    .flight(example)
+                     .flight(example)
                     .build();
 
 

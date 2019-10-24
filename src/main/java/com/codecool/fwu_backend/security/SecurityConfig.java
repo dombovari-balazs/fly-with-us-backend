@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests() // restrict access based on the config below:
-                .antMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                .antMatchers("/auth/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/flights/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/flights/{id}/book/{uId}").authenticated() // allowed only if signed in
                 .antMatchers(HttpMethod.DELETE, "/flights/{id}/book").authenticated() // allowed only if signed in
