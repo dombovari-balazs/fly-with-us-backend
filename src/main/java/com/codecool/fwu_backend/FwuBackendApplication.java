@@ -59,6 +59,13 @@ public class FwuBackendApplication {
                     .length(120)
                     .build();
 
+            TravelAgent travelAgent = TravelAgent.builder()
+                    .name("WizHair")
+                    .rating(5f)
+                    .website("localhost")
+//                    .flight(example)
+                    .build();
+
             List<Seat> seats = flightService.getAmountOfSeats(200, SeatType.SHORT);
             List<Seat> seats2 = flightService.getAmountOfSeats(200, SeatType.SHORT);
             Flight example = Flight.builder()
@@ -67,29 +74,22 @@ public class FwuBackendApplication {
                     .date("2019-09-24")
                     .oneMovie(movie1)
                     .seats(seats)
+                    .travelAgent(travelAgent)
                     .build();
             seats.forEach(seat -> seat.setFlight(example));
             example.fillUpWithGeneratedValues();
             movie1.setFlights(Collections.singletonList(example));
+            travelAgentStorage.save(travelAgent);
             flightStorage.save(example);
             movieStorage.save(movie1);
 
-            TravelAgent travelAgent = TravelAgent.builder()
-                    .name("WizHair")
-                    .rating(5f)
-                    .website("localhost")
-                    .flight(example)
-                    .build();
-
-
-            travelAgentStorage.save(travelAgent);
 
 
 
             Flight example2 = Flight.builder()
                     .cityFrom(City.BUDAPEST.name())
                     .cityTo(City.BARCELONA.name())
-                    .date("2019-09 -25")
+                    .date("2019-09-25")
                     .seats(seats2)
                     .build();
             example2.fillUpWithGeneratedValues();
