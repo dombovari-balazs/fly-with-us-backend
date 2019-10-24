@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests() // restrict access based on the config below:
                 .antMatchers(HttpMethod.POST, "/auth/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/flights/**").permitAll()
+                .antMatchers("/agents/list").permitAll()
                 .antMatchers(HttpMethod.PUT, "/flights/{id}/book/{uId}").authenticated() // allowed only if signed in
                 .antMatchers(HttpMethod.DELETE, "/flights/{id}/book").authenticated() // allowed only if signed in
                 .antMatchers(HttpMethod.PUT, "/flights/book").authenticated() // allowed only if signed in
