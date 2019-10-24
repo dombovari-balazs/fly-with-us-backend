@@ -56,7 +56,7 @@ public class FlightService {
         Flight one = flightStorage.getOne(flightID);
         List<Seat> seats = seatRepository.listAllAvailableSeatByFlightId(one);
 
-        Seat seat =  seats.get(random.nextInt(50));
+        Seat seat =  seats.get(0);
         seat.setUser(new User());
         seatRepository.save(seat);
         return seat;

@@ -4,6 +4,7 @@ import com.codecool.fwu_backend.model.Airport;
 import com.codecool.fwu_backend.model.Flight;
 import com.codecool.fwu_backend.model.Product;
 import com.codecool.fwu_backend.model.enums.City;
+import com.codecool.fwu_backend.model.enums.SeatType;
 import com.codecool.fwu_backend.repository.AirportRepository;
 import com.codecool.fwu_backend.repository.AvailableFlightStorage;
 import org.assertj.core.api.Assertions;
@@ -16,8 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -35,6 +35,9 @@ class FlightServiceTest {
 
     @Autowired
     private FlightService flightService;
+
+    @MockBean
+    private CityService cityService;
 
     private final String from =  "from";
     private final String to =  "to";
@@ -102,14 +105,12 @@ class FlightServiceTest {
 
     @org.junit.jupiter.api.Test
     void findAllBooking() {
+        //TODO implement in code DUH...
     }
 
     @org.junit.jupiter.api.Test
     void bookFlight() {
-    }
 
-    @org.junit.jupiter.api.Test
-    void changeBookedFlight() {
     }
 
     @org.junit.jupiter.api.Test
@@ -118,13 +119,17 @@ class FlightServiceTest {
 
     @org.junit.jupiter.api.Test
     void getAllCity() {
+        assertThat(flightService.getAllCity()).allSatisfy((s, cities) -> Arrays.equals(cities, City.values()));
     }
 
     @org.junit.jupiter.api.Test
     void listMovieByFlightId() {
+
     }
 
     @org.junit.jupiter.api.Test
     void getAmountOfSeats() {
+        assertThat(flightService.getAmountOfSeats(10, SeatType.PREMIUM))
+                .allMatch(seat -> seat.getType().equals(SeatType.PREMIUM));
     }
 }
