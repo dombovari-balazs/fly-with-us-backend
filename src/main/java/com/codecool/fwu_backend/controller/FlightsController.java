@@ -28,7 +28,7 @@ public class FlightsController {
 
 
     @GetMapping("")
-    public List<Flight> listFlights() {
+    public List<FlightDto> listFlights() {
         return flightService.findAllFlight();
     }
 
@@ -56,9 +56,9 @@ public class FlightsController {
         return flightService.findAllBooking();
     }
 
-    @PutMapping("/{id}/book")
-    public Seat bookFlight(@PathVariable Long id) {
-        return flightService.bookFlight(id);
+    @PutMapping("/{id}/book/{uId}")
+    public Seat bookFlight(@PathVariable Long id, @PathVariable Long uId) {
+        return flightService.bookFlight(id, uId);
     }
 
     @PutMapping("book")
