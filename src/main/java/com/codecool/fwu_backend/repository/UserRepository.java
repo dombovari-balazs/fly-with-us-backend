@@ -9,4 +9,6 @@ public interface UserRepository extends JpaRepository<FWUAppUser, Long> {
 
     Optional<FWUAppUser> findByUsername(String username);
 
+    Optional<FWUAppUser> findById(Long id);
+
 }

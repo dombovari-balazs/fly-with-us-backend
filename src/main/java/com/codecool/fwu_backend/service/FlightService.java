@@ -5,6 +5,7 @@ import com.codecool.fwu_backend.model.dto.FlightDto;
 import com.codecool.fwu_backend.model.enums.City;
 import com.codecool.fwu_backend.model.enums.SeatType;
 import com.codecool.fwu_backend.repository.*;
+import com.codecool.fwu_backend.security.JwtTokenServices;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,9 @@ public class FlightService {
 
     @Autowired
     private Random random;
+
+    @Autowired
+    UserRepository userRepository;
 
 
 
@@ -69,12 +73,12 @@ public class FlightService {
         return null;
     }
 
-    public Seat bookFlight(Long flightID) {
+    public Seat bookFlight(Long flightID, Long userId) {
         Flight one = flightStorage.getOne(flightID);
         List<Seat> seats = seatRepository.listAllAvailableSeatByFlightId(one);
 
         Seat seat =  seats.get(random.nextInt(50));
-        seat.setUser(new FWUAppUser());
+        seat.setUser(userRepository.findById(userId).get());
         seatRepository.save(seat);
         return seat;
     }
