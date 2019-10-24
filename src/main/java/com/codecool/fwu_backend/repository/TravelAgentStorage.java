@@ -8,5 +8,5 @@ import java.util.List;
 
 
 public interface TravelAgentStorage extends JpaRepository<TravelAgent, Long> {
-    List<Flight> find
+    TravelAgent findTravelAgentByName(String name);
 }
